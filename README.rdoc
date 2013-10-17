@@ -1,0 +1,6 @@
+= aina
+
+Describe your project here
+
+:include:aina.rdoc
+

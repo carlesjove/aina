@@ -1,0 +1,5 @@
+= aina
+
+Generate this with
+    aina rdoc
+After you have described your command line interface
