@@ -2,23 +2,20 @@
 
 /**
  * Custom Post Type: {{name}}
- * Generated with Aina. Version 0.1
+ * Generated with Aina. Version {{aina_version}}
  */
 
-$domain_name = '{{name}}';
-$name = ucfirst($domain_name);
-
-/* Portfolio Properties */
-function portfolio_register() {
+/* {{name_capitalize}} Properties */
+function {{name}}_register() {
     $labels = array(
-        'name'                  => _x("{$name}", $domain_name),
-        'singular_name'         => _x("{$name} Item", $domain_name),
-        'add_new'               => _x('New Portfolio Item', $domain_name),
-        'add_new_item'          => __('Add New Portfolio Item'),
-        'edit_item'             => __('Edit Portfolio Item'),
-        'new_item'              => __('New Portfolio Item'),
-        'view_item'             => __('View Portfolio Item'),
-        'search_items'          => __('Search Portfolio Items'),
+        'name'                  => _x("{{name_capitalize}}", {{name}}),
+        'singular_name'         => _x("{{name_capitalize}} Item", {{name}}),
+        'add_new'               => _x('New {{name_capitalize}} Item', {{name}}),
+        'add_new_item'          => __('Add New {{name_capitalize}} Item'),
+        'edit_item'             => __('Edit {{name_capitalize}} Item'),
+        'new_item'              => __('New {{name_capitalize}} Item'),
+        'view_item'             => __('View {{name_capitalize}} Item'),
+        'search_items'          => __('Search {{name_capitalize}} Items'),
         'not_found'             => __('Nothing found'),
         'not_found_in_trash'    => __('Nothing found in Trash'),
         'parent_item_colon'     => '',
@@ -37,35 +34,35 @@ function portfolio_register() {
         'menu_position'         => null,
         'supports'              => array('title','editor','thumbnail','excerpt'),
       ); 
-    register_post_type( $domain_name , $args );
+    register_post_type( {{name}} , $args );
 }
 
-add_action('init', 'portfolio_register');
+add_action('init', '{{name}}_register');
 
 
-/* Portfolio Taxonomy */
-add_action( 'init', 'register_taxonomy_portfoliocategories' );
+/* {{name_capitalize}} Taxonomy */
+add_action( 'init', 'register_taxonomy_{{name}}categories' );
 
-function register_taxonomy_portfoliocategories() {
+function register_taxonomy_{{name}}categories() {
     // Taxonomy slug
-    $portfolio_taxonomy = 'portfoliocategories';
+    ${{name}}_taxonomy = '{{name}}categories';
 
     $labels = array( 
-        'name'                       => _x( 'Portfolio Categories', $portfolio_taxonomy ),
-        'singular_name'              => _x( 'Portfolio Category', $portfolio_taxonomy ),
-        'search_items'               => _x( 'Search Portfolio Category', $portfolio_taxonomy ),
-        'popular_items'              => _x( 'Popular Portfolio Category', $portfolio_taxonomy ),
-        'all_items'                  => _x( 'All Portfolio Category', $portfolio_taxonomy ),
-        'parent_item'                => _x( 'Parent Portfolio Category', $portfolio_taxonomy ),
-        'parent_item_colon'          => _x( 'Parent Portfolio Category:', $portfolio_taxonomy ),
-        'edit_item'                  => _x( 'Edit Portfolio Category', $portfolio_taxonomy ),
-        'update_item'                => _x( 'Update Portfolio Category', $portfolio_taxonomy ),
-        'add_new_item'               => _x( 'Add New Portfolio Category', $portfolio_taxonomy ),
-        'new_item_name'              => _x( 'New Portfolio Category', $portfolio_taxonomy ),
-        'separate_items_with_commas' => _x( 'Separate Portfolio Categories with commas', $portfolio_taxonomy ),
-        'add_or_remove_items'        => _x( 'Add or remove Portfolio Categories', $portfolio_taxonomy ),
-        'choose_from_most_used'      => _x( 'Choose from the most used Portfolio Categories', $portfolio_taxonomy ),
-        'menu_name'                  => _x( 'Portfolio Category', $portfolio_taxonomy ),
+        'name'                       => _x( '{{name_capitalize}} Categories', ${{name}}_taxonomy ),
+        'singular_name'              => _x( '{{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'search_items'               => _x( 'Search {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'popular_items'              => _x( 'Popular {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'all_items'                  => _x( 'All {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'parent_item'                => _x( 'Parent {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'parent_item_colon'          => _x( 'Parent {{name_capitalize}} Category:', ${{name}}_taxonomy ),
+        'edit_item'                  => _x( 'Edit {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'update_item'                => _x( 'Update {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'add_new_item'               => _x( 'Add New {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'new_item_name'              => _x( 'New {{name_capitalize}} Category', ${{name}}_taxonomy ),
+        'separate_items_with_commas' => _x( 'Separate {{name_capitalize}} Categories with commas', ${{name}}_taxonomy ),
+        'add_or_remove_items'        => _x( 'Add or remove {{name_capitalize}} Categories', ${{name}}_taxonomy ),
+        'choose_from_most_used'      => _x( 'Choose from the most used {{name_capitalize}} Categories', ${{name}}_taxonomy ),
+        'menu_name'                  => _x( '{{name_capitalize}} Category', ${{name}}_taxonomy ),
     );
 
     $args = array( 
@@ -76,81 +73,29 @@ function register_taxonomy_portfoliocategories() {
         'show_tagcloud'         => true,
         'show_admin_column'     => true,
         'hierarchical'          => true,
-        //'update_count_callback' => 'get_clients_count',
+        //'update_count_callback' => '',
         'rewrite'               => array( 'hierarchical' => true ), // Use taxonomy as categories
         'query_var'             => true
     );
 
-    register_taxonomy( $portfolio_taxonomy, array($domain_name), $args );
+    register_taxonomy( ${{name}}_taxonomy, array({{name}}), $args );
 }
-
-// Custom data fields
-add_action("admin_init", "admin_init");
- 
-// add_meta_box( $id, $title, $callback, $page, $context, $priority );
-function admin_init(){
-  add_meta_box("info_extra", "Informació extra", "project_meta", "portfolio", "normal", "low");
-}
- 
-function project_meta() {
-    global $post;
-    $custom             = get_post_custom($post->ID);
-    $info_extra         = $custom["info_extra"][0];
-
-    ?>
-    <p><label>Informació extra</label><br />
-    <input type="text" name="info_extra" value="<?php echo $info_extra; ?>" style="width: 100%;"/></p>
-    <?php
-}
-
-// Make sure we can save it
-add_action('save_post', 'save_project');
-
-function save_project(){
-    global $post;
-    update_post_meta($post->ID, "info_extra", $_POST["info_extra"]);
-}
-
-function project_has_details($id) {
-    $custom_fields = get_post_custom($id);
-    $details = array(
-        'info_extra',
-    );
-    
-    foreach ($details as $detail) {
-        if( ! empty($custom_fields[$detail][0]))
-            return true;
-    }
-    
-    return false;
-}
-
-function the_extra_info() {
-    global $post;
-    $custom_fields = get_post_custom($post->ID);
-    
-    if ( !empty($custom_fields['info_extra'][0]) ) {
-        echo "<span class=\"title-extra\">/ {$custom_fields['info_extra'][0]} </span>";
-    }
-    return false;
-}
-
-
 
 /**
- * Displays the Portfolio post type icon in the dashboard
+ * Displays the {{name_capitalize}} post type icon in the dashboard
  */
-add_action( 'admin_head', 'portfolio_icon' );
-function portfolio_icon() { ?>
-    <style type="text/css" media="screen">
-        #menu-posts-projecte .wp-menu-image {
-            background: url(<?php echo get_stylesheet_directory_uri(); ?>/img/portfolio-icon.png) no-repeat 6px 6px !important;
-        }
-        #menu-posts-projecte:hover .wp-menu-image, #menu-posts-projecte.wp-has-current-submenu .wp-menu-image {
-            background-position:6px -16px !important;
-        }
-        #icon-edit.icon32-posts-projecte {background: url(<?php echo get_stylesheet_directory_uri(); ?>/img/portfolio-32x32.png) no-repeat;}
-    </style>
-<?php }
-
+add_action( 'admin_head', '{{name}}_icon' );
+function {{name}}_icon() {
+    echo '<style type="text/css" media="screen">
+            #menu-posts-projecte .wp-menu-image {
+                background: url(<?php echo get_stylesheet_directory_uri(); ?>/img/{{name}}-icon.png) no-repeat 6px 6px !important;
+            }
+            #menu-posts-projecte:hover .wp-menu-image, #menu-posts-projecte.wp-has-current-submenu .wp-menu-image {
+                background-position:6px -16px !important;
+            }
+            #icon-edit.icon32-posts-projecte {
+                background: url(<?php echo get_stylesheet_directory_uri(); ?>/img/{{name}}-32x32.png) no-repeat;
+            }
+        </style>';
+}
 
