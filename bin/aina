@@ -11,35 +11,45 @@ end
 
 include GLI::App
 
-program_desc 'Describe your application here'
+program_desc 'Code generator for WordPress themes'
 
 version Aina::VERSION
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+# desc 'Describe some switch here'
+# switch [:s,:switch]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+# desc 'Describe some flag here'
+# default_value 'the default'
+# arg_name 'The name of the argument'
+# flag [:f,:flagname]
 
-desc 'Describe generate here'
-arg_name 'Describe arguments to generate here'
+desc 'Generates a piece of code from a template'
+arg_name 'type'
 command :generate do |c|
-  c.desc 'Describe a switch to generate'
-  c.switch :s
+  # c.desc 'Describe a switch to generate'
+  # c.switch :s
 
-  c.desc 'Describe a flag to generate'
-  c.default_value 'default'
-  c.flag :f
+  # c.desc 'Describe a flag to generate'
+  # c.default_value 'default'
+  # c.flag :f
   c.action do |global_options,options,args|
+    type = args.shift
+    name = args.shift
+    
+    if type.nil?
+      raise NoMethodError, 'You need to generate something'
+    elsif name.nil?
+      raise NoMethodError, 'You need to put a name to what you want tot generate'
+    end
+    element = Generable.new(type, name)
+    
+    unless element.is_generable?
+      raise Exception, "#{element.type} is not a generable piece of code"
+    end
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-
-    puts "generate command ran"
+    element.generate
+ 
+    puts "A #{element.type} with name #{element.name} has been succesfully generated"
   end
 end
 
