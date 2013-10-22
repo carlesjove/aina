@@ -10,12 +10,13 @@ class Generable
 		}
 	}
 
-	def initialize(type, name, options)
+	def initialize(type, name, options=nil)
 		@type = type
 		@name = name 
 		@name_capitalize = name.capitalize
 		@aina_version = Aina::VERSION
 		@options = options
+		@file = "../#{@name}.php"
 		@template = "#{TEMPLATES_DIR}/#{@type}.php"
 	end
 
@@ -42,5 +43,13 @@ class Generable
 			@output = text.gsub!(/#{replace}/, self.send(attribute))
 		end
   	File.open("../#{@name}.php", "w") {|file| file.puts @output}
+	end
+
+	def destroy
+		if File.exists?(@file)
+			File.delete(@file)
+		else
+			raise "No #{@type} with name #{@name}"
+		end
 	end
 end

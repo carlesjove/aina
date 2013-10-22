@@ -55,11 +55,17 @@ command :generate do |c|
   end
 end
 
-desc 'Describe destroy here'
-arg_name 'Describe arguments to destroy here'
+desc 'Destroys a generated piece of code'
+arg_name 'type name'
 command :destroy do |c|
   c.action do |global_options,options,args|
-    puts "destroy command ran"
+    type = args.shift
+    name = args.shift
+
+    element = Generable.new(type, name)
+    if element.destroy
+      puts "The #{element.type} #{element.name} has been succesfully destroyed"
+    end
   end
 end
 
