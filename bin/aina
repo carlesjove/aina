@@ -35,22 +35,11 @@ command :generate do |c|
   c.flag :s
 
   c.action do |global_options,options,args|
-    type = args.shift
-    name = args.shift
-    
-    if type.nil?
-      raise NoMethodError, 'You need to generate something'
-    elsif name.nil?
-      raise NoMethodError, 'You need to put a name to what you want tot generate'
-    end
-    element = Generable.new(type, name, options)
-    
+    element = Generable.new(@type, @name, options)
     unless element.is_generable?
       raise Exception, "#{element.type} is not a generable piece of code"
     end
-
     element.generate
- 
     puts "A #{element.type} with name #{element.name} has been succesfully generated"
   end
 end
@@ -59,10 +48,7 @@ desc 'Destroys a generated piece of code'
 arg_name 'type name'
 command :destroy do |c|
   c.action do |global_options,options,args|
-    type = args.shift
-    name = args.shift
-
-    element = Generable.new(type, name)
+    element = Generable.new(@type, @name)
     if element.destroy
       puts "The #{element.type} #{element.name} has been succesfully destroyed"
     end
@@ -75,6 +61,14 @@ pre do |global,command,options,args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
+  @type = args.shift
+  @name = args.shift
+  
+  if @type.nil?
+    raise NoMethodError, 'You need to generate something'
+  elsif @name.nil?
+    raise NoMethodError, 'You need to put a name to what you want tot generate'
+  end
   true
 end
 
