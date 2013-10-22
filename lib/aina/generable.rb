@@ -5,8 +5,8 @@ class Generable
 	TEMPLATES_DIR = 'templates'
 
 	GENERABLE_TYPES = { 
-		'post-type' => { 
-			'template' => 'post-type.php' 
+		'post_type' => { 
+			'template' => 'post_type.php' 
 		}
 	}
 

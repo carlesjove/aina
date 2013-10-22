@@ -24,12 +24,12 @@ version Aina::VERSION
 # flag [:f,:flagname]
 
 desc 'Generates a piece of code from a template'
-arg_name 'type'
+arg_name 'element_type element_name'
 command :generate do |c|
   # c.desc 'Describe a switch to generate'
   # c.switch :s
 
-  c.desc 'Content fields that a post-type supports'
+  c.desc 'Content fields that a post_type supports'
   c.default_value 'title,editor,excerpt,thumbnail'
   c.arg_name 'supports'
   c.flag :s
@@ -37,7 +37,7 @@ command :generate do |c|
   c.action do |global_options,options,args|
     element = Generable.new(@type, @name, options)
     unless element.is_generable?
-      raise Exception, "#{element.type} is not a generable piece of code"
+      raise Exception, "#{element.type} is not a generable piece of code. Try #{Generable::GENERABLE_TYPES.keys}"
     end
     element.generate
     puts "A #{element.type} with name #{element.name} has been succesfully generated"
@@ -45,7 +45,7 @@ command :generate do |c|
 end
 
 desc 'Destroys a generated piece of code'
-arg_name 'type name'
+arg_name 'element_type element_name'
 command :destroy do |c|
   c.action do |global_options,options,args|
     element = Generable.new(@type, @name)
