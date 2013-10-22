@@ -25,7 +25,7 @@ version Aina::VERSION
 
 desc 'Generates a piece of code from a template'
 arg_name 'element_type element_name'
-command :generate do |c|
+command [:generate, :g] do |c|
   # c.desc 'Describe a switch to generate'
   # c.switch :s
 
@@ -46,7 +46,7 @@ end
 
 desc 'Destroys a generated piece of code'
 arg_name 'element_type element_name'
-command :destroy do |c|
+command [:destroy] do |c|
   c.action do |global_options,options,args|
     element = Generable.new(@type, @name)
     if element.destroy
