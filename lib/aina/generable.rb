@@ -16,7 +16,7 @@ class Generable
 		@name_capitalize = name.capitalize
 		@aina_version = Aina::VERSION
 		@options = options
-		@file = "../#{@name}.php"
+		@file = Dir.pwd + "/#{@name}.php"
 		@template = "#{TEMPLATES_DIR}/#{@type}.php"
 	end
 
@@ -42,7 +42,7 @@ class Generable
 			attribute = replace.gsub(/[{}]/, '')
 			@output = text.gsub!(/#{replace}/, self.send(attribute))
 		end
-  	File.open("../#{@name}.php", "w") {|file| file.puts @output}
+  	File.open(@file, "w") {|file| file.puts @output}
 	end
 
 	def destroy
