@@ -29,9 +29,11 @@ command :generate do |c|
   # c.desc 'Describe a switch to generate'
   # c.switch :s
 
-  # c.desc 'Describe a flag to generate'
-  # c.default_value 'default'
-  # c.flag :f
+  c.desc 'Content fields that a post-type supports'
+  c.default_value 'title,editor,excerpt,thumbnail'
+  c.arg_name 'supports'
+  c.flag :s
+
   c.action do |global_options,options,args|
     type = args.shift
     name = args.shift
@@ -41,7 +43,7 @@ command :generate do |c|
     elsif name.nil?
       raise NoMethodError, 'You need to put a name to what you want tot generate'
     end
-    element = Generable.new(type, name)
+    element = Generable.new(type, name, options)
     
     unless element.is_generable?
       raise Exception, "#{element.type} is not a generable piece of code"

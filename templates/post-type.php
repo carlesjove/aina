@@ -32,7 +32,7 @@ function {{name}}_register() {
         'hierarchical'          => true,
         'has_archive'           => true,
         'menu_position'         => null,
-        'supports'              => array('title','editor','thumbnail','excerpt'),
+        'supports'              => array({{supports}}),
       ); 
     register_post_type( {{name}} , $args );
 }
