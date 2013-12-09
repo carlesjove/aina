@@ -1,5 +1,5 @@
-require 'aina/version.rb'
-require 'aina/generable.rb'
+# Lib
+Dir.glob(File.dirname(__FILE__) + "/aina/*") { |file|  require file }
 
-# Add requires for other files you add to your project here, so
-# you just need to require this one file in your bin file
+# Templates
+Dir.glob(File.expand_path('..') + "/templates/*") { |file|  require file }

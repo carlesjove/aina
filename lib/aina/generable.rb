@@ -2,7 +2,7 @@
 class Generable
 	attr_reader :type, :template, :name, :name_capitalize, :aina_version, :supports
 
-	TEMPLATES_DIR = 'templates'
+	TEMPLATES_DIR = File.expand_path('../../..',__FILE__) + '/templates'
 
 	GENERABLE_TYPES = { 
 		'post_type' => { 
