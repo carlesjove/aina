@@ -6,7 +6,8 @@ class Generable
 
 	GENERABLE_TYPES = { 
 		'post_type' => { 
-			'template' => 'post_type.php' 
+			'template' => 'post_type.php',
+			'dir' => 'post-types' 
 		}
 	}
 
@@ -16,7 +17,7 @@ class Generable
 		@name_capitalize = name.capitalize
 		@aina_version = Aina::VERSION
 		@options = options
-		@file = Dir.pwd + "/#{@name}.php"
+		@file = generate_file_name
 		@template = "#{TEMPLATES_DIR}/#{@type}.php"
 	end
 
@@ -52,4 +53,16 @@ class Generable
 			raise "No #{@type} with name #{@name}"
 		end
 	end
+
+	private
+		def generate_file_name
+			unless GENERABLE_TYPES[@type]['dir'].nil?
+				unless Dir.exists?(Dir.pwd + '/' + GENERABLE_TYPES[@type]['dir'])
+					Dir.mkdir(Dir.pwd + '/' + GENERABLE_TYPES[@type]['dir'])
+				end
+				Dir.pwd + "/#{GENERABLE_TYPES[@type]['dir']}/#{@name}.php"
+			else
+				Dir.pwd + "/#{@name}.php"
+			end
+		end
 end
