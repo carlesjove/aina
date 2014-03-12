@@ -8,9 +8,9 @@
 /* {{name_capitalize}} Properties */
 function {{name}}_register() {
     $labels = array(
-        'name'                  => _x("{{name_capitalize}}", {{name}}),
-        'singular_name'         => _x("{{name_capitalize}} Item", {{name}}),
-        'add_new'               => _x('New {{name_capitalize}} Item', {{name}}),
+        'name'                  => _x("{{name_capitalize}}", '{{name}}'),
+        'singular_name'         => _x("{{name_capitalize}} Item", '{{name}}'),
+        'add_new'               => _x('New {{name_capitalize}} Item', '{{name}}'),
         'add_new_item'          => __('Add New {{name_capitalize}} Item'),
         'edit_item'             => __('Edit {{name_capitalize}} Item'),
         'new_item'              => __('New {{name_capitalize}} Item'),
@@ -34,7 +34,7 @@ function {{name}}_register() {
         'menu_position'         => null,
         'supports'              => array({{supports}}),
       ); 
-    register_post_type( {{name}} , $args );
+    register_post_type( '{{name}}' , $args );
 }
 
 add_action('init', '{{name}}_register');
@@ -78,7 +78,7 @@ function register_taxonomy_{{name}}categories() {
         'query_var'             => true
     );
 
-    register_taxonomy( ${{name}}_taxonomy, array({{name}}), $args );
+    register_taxonomy( ${{name}}_taxonomy, array('{{name}}'), $args );
 }
 
 /**
