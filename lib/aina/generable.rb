@@ -18,7 +18,7 @@ class Generable
 		@aina_version = Aina::VERSION
 		@options = options
 		@file = generate_file_name
-		@template = "#{TEMPLATES_DIR}/#{@type}.php"
+		@template = "#{TEMPLATES_DIR}/#{GENERABLE_TYPES[@type]['template']}"
 	end
 
 	def is_generable?
