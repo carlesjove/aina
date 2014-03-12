@@ -1,2 +1,5 @@
 .DS_Store
-results.html # Cucumber tests results
+pkg/
+
+# Cucumber tests results
+results.html 
