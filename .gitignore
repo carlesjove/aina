@@ -1,5 +1,6 @@
 .DS_Store
 pkg/
+TODO.txt
 
 # Cucumber tests results
 results.html 
