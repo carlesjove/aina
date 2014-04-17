@@ -23,10 +23,10 @@ command [:generate, :g] do |c|
   # c.desc 'Describe a switch to generate'
   # c.switch :s
 
-  c.desc 'Content fields that a post_type supports'
+  c.desc 'Content fields that a post_type supports, comma separated'
   c.default_value 'title,editor,excerpt,thumbnail'
   c.arg_name 'supports'
-  c.flag :s
+  c.flag [:s, :supports]
 
   c.action do |global_options,options,args|
     element = Generable.new(@type, @name, options)
