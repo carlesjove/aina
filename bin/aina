@@ -23,18 +23,25 @@ command [:generate, :g] do |c|
   # c.desc 'Describe a switch to generate'
   # c.switch :s
 
-  c.desc 'Content fields that a post_type supports, comma separated'
-  c.default_value 'title,editor,excerpt,thumbnail'
+  c.desc '[post_type] Content fields that a post_type supports, comma separated'
+  c.default_value PostType::DEFAULT_SUPPORT
   c.arg_name 'supports'
   c.flag [:s, :supports]
 
+  c.desc '[post_type] Capability type'
+  c.default_value PostType::DEFAULT_CAPABILITY
+  c.arg_name 'capability'
+  c.flag [:c, :capability]
+
   c.action do |global_options,options,args|
-    element = Generable.new(@type, @name, options)
-    unless element.is_generable?
-      raise Exception, "#{element.type} is not a generable piece of code. Try #{Generable::GENERABLE_TYPES.keys}"
+    if Generable.accepts?(@type)
+      element = Object.const_get(Generable.class_name_for @type).new(@name, options)
+      #puts element.inspect ##### REMOVE
+      element.generate
+      puts "A #{@type} with name #{element.name} has been succesfully generated"
+    else
+      raise Exception, "#{@type} is not a generable piece of code. Options are: #{Generable.generable_types.join(', ')}"
     end
-    element.generate
-    puts "A #{element.type} with name #{element.name} has been succesfully generated"
   end
 end
 
@@ -42,19 +49,27 @@ desc 'Destroys a generated piece of code'
 arg_name 'element_type element_name'
 command [:destroy] do |c|
   c.action do |global_options,options,args|
-    element = Generable.new(@type, @name)
-    if element.destroy
-      puts "The #{element.type} #{element.name} has been succesfully destroyed"
+    if Generable.accepts?(@type)
+      element = Object.const_get(Generable.class_name_for @type).new(@name)
+      if element.destroy
+        puts "The #{@type} #{element.name} has been succesfully destroyed"
+      end
+    else
+      raise Exception, "#{@type} is not a destroyable piece of code. Options are: #{Generable.generable_types.join(', ')}"
     end
   end
 end
 
 pre do |global,command,options,args|
-  unless is_wordpress_theme?
-    puts "This does not look like a WordPress theme"
-    return false
-  end
+  # unless is_wordpress_theme?
+  #   puts "This does not look like a WordPress theme"
+  #   return false
+  # end
 
+  #
+  # This should be validated in generable.rb not here
+  #
+  # Here we should only validate that it's a WordPress installation
   @type = args.shift
   @name = args.shift
   

@@ -9,7 +9,7 @@ spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = 'Code generation for WordPress'
 # Add your other files here if you make them
-  s.files = Dir['bin/aina'] + Dir['lib/aina/*'] + Dir['templates/*'] + Dir['lib/aina.rb']
+  s.files = Dir['bin/aina'] + Dir['lib/aina/*'] + Dir['lib/aina/generable/*'] + Dir['lib/aina/generable/types/*'] + Dir['templates/*'] + Dir['lib/aina.rb']
   s.require_paths << 'lib'
   s.require_paths << 'templates'
   s.has_rdoc = true
