@@ -1,6 +1,4 @@
 module Generable
-	TEMPLATES_DIR = File.expand_path('../../..',__FILE__) + '/templates'
-
 	# List of generable types
 	def self.generable_types
 		g = Array.new
@@ -34,7 +32,7 @@ module Generable
 	# Then, in type use: 
 	# template 'my-template.php'
 	def template(template)
-		@template = "#{TEMPLATES_DIR}/#{template}" if template
+		@template = "#{Aina::TEMPLATES_DIR}/#{template}" if template
 	end
 
 	def get_template
@@ -52,5 +50,13 @@ module Generable
 
 	def get_replacements
 		@replacements
+	end
+
+	def after_generate(*callbacks)
+		@after_generate = callbacks
+	end
+
+	def get_after_generate
+		@after_generate
 	end
 end

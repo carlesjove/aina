@@ -38,6 +38,16 @@ class Generable::Base
 			@output = text.gsub!(/#{replace}/, self.send(attribute))
 		end
   	File.open(@file, "w") {|file| file.puts @output}
+
+  	after_generate
+	end
+
+	def after_generate
+		if self.class.get_after_generate
+			self.class.get_after_generate.each do |callback|
+				self.send(callback)
+			end
+		end
 	end
 
 	def destroy
