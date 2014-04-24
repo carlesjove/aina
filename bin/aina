@@ -33,12 +33,31 @@ command [:generate, :g] do |c|
   c.arg_name 'capability'
   c.flag [:c, :capability]
 
+  c.desc 'Install Aina framework to easily create custom post_type fields'
+  c.switch [:i, :install]
+
   c.action do |global_options,options,args|
+    @type = args.shift
+    @name = args.shift
+    
+    if @type.nil?
+      raise NoMethodError, 'You need to generate something'
+    elsif @name.nil?
+      raise NoMethodError, 'You need to put a name to what you want tot generate'
+    end
+
     if Generable.accepts?(@type)
       element = Object.const_get(Generable.class_name_for @type).new(@name, options)
-      #puts element.inspect ##### REMOVE
       element.generate
-      puts "A #{@type} with name #{element.name} has been succesfully generated"
+      
+      output = "A #{@type} with name #{element.name} has been succesfully generated"
+      if options[:i]
+        output += ". Also, Aina's framework has been added.\n"
+      end
+
+      output += "\n\nRemember to include your post type  functions.php:\n"
+      output += "require_once 'post-types/#{element.name}.php';\n\n"
+      puts output
     else
       raise Exception, "#{@type} is not a generable piece of code. Options are: #{Generable.generable_types.join(', ')}"
     end
@@ -60,23 +79,18 @@ command [:destroy] do |c|
   end
 end
 
-pre do |global,command,options,args|
-  # unless is_wordpress_theme?
-  #   puts "This does not look like a WordPress theme"
-  #   return false
-  # end
+desc 'Installs Aina framework, that allows you to easily create custom fields for post_types'
+arg_name 'field:type'
+command [:install] do |c|
+  c.action do |global_options, options, args|
+    Aina.install(true)
+  end
+end
 
-  #
-  # This should be validated in generable.rb not here
-  #
-  # Here we should only validate that it's a WordPress installation
-  @type = args.shift
-  @name = args.shift
-  
-  if @type.nil?
-    raise NoMethodError, 'You need to generate something'
-  elsif @name.nil?
-    raise NoMethodError, 'You need to put a name to what you want tot generate'
+pre do |global,command,options,args|
+  unless is_wordpress_theme?
+    puts "This does not look like a WordPress theme"
+    return false
   end
   true
 end
