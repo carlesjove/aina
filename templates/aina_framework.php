@@ -71,7 +71,7 @@ function aina_get_field($post_type, $field = '') {
  * This is a wrapper for aina_get_field()
  */
 function aina_field($post_type, $field = '') {
-    echo aina_get_field($field);
+    echo aina_get_field($post_type, $field);
 }
 
 /**
