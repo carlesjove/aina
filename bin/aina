@@ -55,7 +55,8 @@ command [:generate, :g] do |c|
         output += ". Also, Aina's framework has been added.\n"
       end
 
-      output += "\n\nRemember to include your post type  functions.php:\n"
+      # TODO
+      output += "\n\nRemember to include your post type #{element.name} functions.php:\n"
       output += "require_once 'post-types/#{element.name}.php';\n\n"
       puts output
     else
@@ -76,6 +77,28 @@ command [:destroy] do |c|
     else
       raise Exception, "#{@type} is not a destroyable piece of code. Options are: #{Generable.generable_types.join(', ')}"
     end
+  end
+end
+
+desc 'Add custom fields to post_types'
+arg_name 'element_name field:type'
+command [:add] do |c|
+  c.action do |global_options,options,args|
+    @name = args.shift
+
+    if @name.nil?
+      raise Exception, "Please, write the name of the post_type"
+    end
+
+    unless Aina.is_installed?
+      Aina.install
+      puts "We have installed Aina's framework for you. Next time, you can run `aina install` yourself ;-)"
+    end
+
+    add = Addable.new(@name, args)
+    add.add_custom_fields
+
+    puts "#{add.fields.map{|f| f[:key]}} fields have been added to #{@name}"
   end
 end
 

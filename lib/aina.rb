@@ -17,7 +17,7 @@ module Aina
 		end
 
 		# Install Aina
-		unless File.exists?(Dir.pwd + "/inc/aina.php")
+		unless self.is_installed?
 			text = File.read(Aina::TEMPLATES_DIR + '/aina_framework.php')
 
 			['{{aina_version}}'].each do |replace|
@@ -26,6 +26,14 @@ module Aina
 			end
 
 			File.open(Dir.pwd + "/inc/aina.php", "w") {|file| file.puts @output}
+
+			message = "Aina has been installed in your WordPress theme.\n"
+			message += "\n\nIf you want your post type to be automatically included, put this is functions.php:\n"
+	    message += "function aina_post_types() {\n"
+	    message += " return array('your_post_type', 'another_post_type', 'etc');\n"
+	    message += "}\n"
+		else
+			message = "Aina was already installed in your WordPress theme ;-)\n"
 		end
 
 		# Include Aina
@@ -35,13 +43,11 @@ module Aina
 		File.open(functions_php, "a+") {|file| file.puts aina_inclusion}
 
 		if output
-			output = "Aina has been installed in your WordPress theme.\n"
-			output += "\n\nIf you want your post type to be automatically included, put this is functions.php:\n"
-	    output += "function aina_post_types() {\n"
-	    output += " return array('your_post_type', 'another_post_type', 'etc');\n"
-	    output += "}\n"
-
-	    puts output
+	    puts message
 	  end
+	end
+
+	def self.is_installed?
+		File.exists?(Dir.pwd + "/inc/aina.php")
 	end
 end
