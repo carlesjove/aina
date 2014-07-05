@@ -1,7 +1,7 @@
 # Generable class
 class Generable::Base
 	extend Generable
-	attr_reader :name, :template, :aina_version, :supports
+	attr_reader :name, :template, :file, :aina_version, :supports
 
 	def initialize(name, options=nil)
 		@name = name

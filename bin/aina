@@ -48,7 +48,11 @@ command [:generate, :g] do |c|
 
     if Generable.accepts?(@type)
       element = Object.const_get(Generable.class_name_for @type).new(@name, options)
-      element.generate
+      unless File.exists?(element.file)
+        element.generate
+      else
+        raise Exception, "A #{@type} named #{element.name} already exists. Action aborted."
+      end
       
       output = "A #{@type} with name #{element.name} has been succesfully generated"
       if options[:i]
