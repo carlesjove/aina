@@ -44,6 +44,6 @@ class PostType < Generable::Base
 			unless functions_php_exists?
 				create_empty_functions_php
 			end
-			File.open(functions_php, "a+") {|file| file.puts "/* Include #{self.name} */\nrequire_once '#{dir}/#{self.name}.php'"}
+			File.open(functions_php, "a+") {|file| file.puts "/* Include #{self.name} */\nrequire_once '#{dir}/#{self.name}.php';"}
 		end
 end
