@@ -31,8 +31,6 @@ class Addable
 	end
 
 	def custom_fields
-		# TODO: Check if function already exists,
-		# and if it does, only add to the array
 		c = Array.new
 		c << "/**"
 		c << " * Custom data fields"
@@ -52,15 +50,15 @@ class Addable
 	def add_custom_fields
 		@file = Dir.pwd + "/post-types/#{@name}.php"
 		
-		# Add Custom Fields
+		# The post type wasn't using custom fields yet, 
+		# so wrap them with the custom_fields function
 		unless File.read(@file).include? "function #{@name}_custom_fields"
 			File.open(@file, 'a+') {|file| file.puts custom_fields}
 		else
-			f = File.open(@file)
 			output = Array.new
 			counter = 0 # This will help us keep track of lines
 
-			f.each do |line|
+			File.open(@file).each do |line|
 				output << line
 
 				# When we reach a line that includes "function #{@name}_custom_fields"
