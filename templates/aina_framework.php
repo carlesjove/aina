@@ -8,7 +8,7 @@
 /**
  * Include Custom Post-Types
  */
-if ( function_exists( aina_post_types() ) ) {
+if ( function_exists( 'aina_post_types' ) ) {
   foreach ( aina_post_types() as $pt ) {
     require dirname(dirname(__FILE__)) . '/post-types/' . $pt . '.php';
   }

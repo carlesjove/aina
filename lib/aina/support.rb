@@ -22,7 +22,7 @@ def aina_inclusion
 	output = "\n/**\n"
 	output += " * Include Aina's framework\n"
 	output += " */\n"
-	output += "if ( file_exists('inc/aina.php') ) {\n"
+	output += "if ( file_exists( dirname(__FILE__) . '/inc/aina.php' ) ) {\n"
 	output += "	require_once 'inc/aina.php';\n"
 	output += "}\n"
 end
