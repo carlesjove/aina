@@ -59,9 +59,6 @@ command [:generate, :g] do |c|
         output += ". Also, Aina's framework has been added.\n"
       end
 
-      # TODO
-      output += "\n\nRemember to include your post type #{element.name} functions.php:\n"
-      output += "require_once 'post-types/#{element.name}.php';\n\n"
       puts output
     else
       raise Exception, "#{@type} is not a generable piece of code. Options are: #{Generable.generable_types.join(', ')}"

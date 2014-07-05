@@ -8,7 +8,7 @@ class PostType < Generable::Base
 	dir 'post-types'
 	replacements %w(name_capitalize capability supports)
 
-	after_generate :install_aina_framework?
+	after_generate :install_aina_framework?, :include_post_type
 
 	def set_custom_vars
 		@name_capitalize = self.name.capitalize
@@ -40,16 +40,10 @@ class PostType < Generable::Base
 			end
 		end
 
-		# TODO
-		# Include post_type automatically in functions.php
-		# def include
-		# 	output = "/**\n"
-		# 	output += " * Include Post-Types for Aina\n"
-		# 	output += " */\n"
-		# 	output += "function aina_post_types() {\n"
-  # 		output += "	$post_types = array();\n"
-  # 		output += "	$post_types[] = '#{@name}';\n"
-  # 		output += "	return $post_types;\n"
-  # 		output += "}\n\n"
-		# end
+		def include_post_type
+			unless functions_php_exists?
+				create_empty_functions_php
+			end
+			File.open(functions_php, "a+") {|file| file.puts "/* Include #{self.name} */\nrequire_once '#{dir}/#{self.name}.php'"}
+		end
 end
