@@ -5,4 +5,7 @@ post-types/ # Don't include wp dirs, in case we missed one
 inc/ # Don't include wp dirs, in case we missed one
 
 # Cucumber tests results
-results.html 
+results.html
+tmp
+tmp/
+tmp/* 
