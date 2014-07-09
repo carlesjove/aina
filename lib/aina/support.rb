@@ -4,6 +4,10 @@ def is_wordpress_theme?
 	theme_path.last(2).join('/') == 'wp-content/themes'
 end
 
+def tests_being_runned?
+	ENV['HOME'] == 'tmp/aruba'
+end
+
 def functions_php
 	Dir.pwd + "/functions.php"
 end

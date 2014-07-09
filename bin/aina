@@ -112,7 +112,7 @@ command [:install] do |c|
 end
 
 pre do |global,command,options,args|
-  unless is_wordpress_theme?
+  unless is_wordpress_theme? or tests_being_runned?
     puts "This does not look like a WordPress theme"
     return false
   end
