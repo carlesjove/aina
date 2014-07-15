@@ -12,14 +12,14 @@ Given /^the file "(.*?)" doesn't exist$/ do |file|
 end
 
 Given /^the file "(.*?)" exists$/ do |file|
-	@home = Dir.pwd + '/tmp/aruba'
-	# Create dirs if necessary
+	@home = Dir.pwd + '/tmp/aruba/'
+
+	# Create parent dirs
 	parts = file.split('/')
-	i = 0
-	while i < ( parts.count - 1 )
-		FileUtils.mkdir @home + parts[i] unless Dir.exists?(@home + parts[i])
-		i += 1
-	end
+	parts.delete_at(parts.count-1)
+	path = @home + parts.join('/')
+	FileUtils.mkdir_p path
+
 	# Create the file
 	FileUtils.touch(@home + file) unless File.exists? @home + file
 end
@@ -27,4 +27,9 @@ end
 Then /^aina should be installed$/ do
 	@home = Dir.pwd + '/tmp/aruba'
 	step %(a file named "#{@home}/inc/aina.php" should exist)
+end
+
+Then /^the file named "(.*?)" should contain "(.*?)"$/ do |filename, content|
+  @home = Dir.pwd + '/tmp/aruba'
+  File.read(@home + '/' + filename).include? content
 end
