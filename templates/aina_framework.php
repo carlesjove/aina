@@ -116,11 +116,12 @@ function aina_custom_field_for($field, $value, $args = array()) {
 
         // With options
         case 'radio':
+        case 'checkbox':
           if ( isset($args['options']) && is_array($args['options']) ) {
             foreach ($args['options'] as $option) {
               $checked = $option == $value ? true : false;
               $is_checked = $checked == true ? 'checked' : '';
-              $return .= '<input type="radio" name=" ' . $field . '[]" value="' . $option . '" ' . $is_checked . '/>' . $option;
+              $return .= '<input type="'. $args['type'] .'" name=" ' . $field . '[]" value="' . $option . '" ' . $is_checked . '/>' . $option;
             }
           }
           break;
