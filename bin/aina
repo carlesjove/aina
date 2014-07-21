@@ -70,6 +70,15 @@ desc 'Destroys a generated piece of code'
 arg_name 'element_type element_name'
 command [:destroy] do |c|
   c.action do |global_options,options,args|
+    @type = args.shift
+    @name = args.shift
+
+    if @type.nil?
+      raise NoMethodError, 'You must specify what kind of file you want to destroy (i.e. post_type)'
+    elsif @name.nil?
+      raise NoMethodError, 'You must specify the name of what you want to destroy'
+    end
+
     if Generable.accepts?(@type)
       element = Object.const_get(Generable.class_name_for @type).new(@name)
       if element.destroy
