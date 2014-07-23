@@ -14,6 +14,10 @@ Since Aina is a Ruby gem, you must have a Ruby environment running in your machi
 `gem install aina`
 
 ## Usage
+Aina runs within themes, so the first step is moving to your theme directory. *Aina will throw an error if you're not in a theme*.
+
+`$ cd path/to/my/wordpress/theme`
+
 This is the list of Aina's current commands.
 
 ### Generate
