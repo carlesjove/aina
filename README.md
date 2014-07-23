@@ -8,13 +8,18 @@ Code generation for WordPress *themes*, from the Command Line.
 ## Overview
 As of the current version, Aina allows you to generate WordPress custom post types and add custom meta fields to them, from the command line. Aina is mainly conceived as a CLI, but after you have it running in your theme, you can also add custom fields manually in your post types' files taking advantage of Aina's framework.
 
+## Installation
+Since Aina is a Ruby gem, you must have a Ruby environment running in your machine. You can install Aina from Rubygems:
+
+`gem install aina`
+
 ## Usage
 This is the list of Aina's current commands.
 
 ### Generate
 The `generate` command (or `g` in its abbreviated form) lets you generate WordPress elements:
 
-`aina generate <element_type> <element_name>`
+`$ aina generate <element_type> <element_name>`
 
 Since right now the only available option is `post_type`, this is how you would create a new custom post type named Project:
 
@@ -42,7 +47,7 @@ The `add` command lets you add custom meta fields to post types:
 
 Taking the previous example, let's add four custom fields to the Project post type:
 
-`aina add project client:text year:date website:text kind:select`
+`$ aina add project client:text year:date website:text kind:select`
 
 This will add a function named after your post type (`project_custom_fields()` in the example), that returns an `array` of custom fields, as such:
 
