@@ -125,6 +125,20 @@ function aina_custom_field_for($field, $value, $args = array()) {
             }
           }
           break;
+        case 'select':
+          if ( isset($args['options']) && is_array($args['options']) ) {
+            $return .= '<select name="' . $field . '">';
+            foreach ($args['options'] as $option) {
+              if ( $option == $value ) {
+                $return .= '<option value="' . $option . '">' . $option . '</option>';
+              }
+            }
+            foreach ($args['options'] as $option) {
+              $return .= '<option value="' . $option . '">' . $option . '</option>';
+            }
+            $return .= '</select>';
+          }
+          break;
         default:
           # code...
           break;
