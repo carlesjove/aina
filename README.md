@@ -9,7 +9,7 @@ Code generation for WordPress *themes*, from the Command Line.
 As of the current version, Aina allows you to generate WordPress custom post types and add custom meta fields to them, from the command line. Aina is mainly conceived as a CLI, but after you have it running in your theme, you can also add custom fields manually in your post types' files taking advantage of Aina's framework.
 
 ## Installation
-Since Aina is a Ruby gem, you must have a Ruby environment running in your machine. You can install Aina from Rubygems:
+Since Aina is a Ruby gem, you must have a Ruby environment running in your machine. You can install Aina from RubyGems:
 
 `gem install aina`
 
@@ -17,14 +17,14 @@ Since Aina is a Ruby gem, you must have a Ruby environment running in your machi
 This is the list of Aina's current commands.
 
 ### Generate
-The `generate` command (or `g` in its abbreviated form) lets you generate WordPress elements:
+The `generate` command (or `g` in its abbreviated form) lets you generate WordPress elements. It also includes them in your `functions.php` so you don't need to do it manually.
 
 `$ aina generate <element_type> <element_name>`
 
 Since right now the only available option is `post_type`, this is how you would create a new custom post type named Project:
 
 ```
-aina generate post_type project
+$ aina generate post_type project
 
 # This will create a post type named Project in /post-types/project.php
 ```
@@ -32,9 +32,9 @@ aina generate post_type project
 ### Add
 The `add` command lets you add custom meta fields to post types:
 
-`aina add <element_name> <field:type>`
+`$ aina add <element_name> <field:type>`
 
-**Options:** Field types are regular HTML types. Current options are:
+**Options:** Field types are regular HTML `input` types. Current available options are:
 
 - text
 - url
@@ -75,5 +75,7 @@ Since `kind` is of type `select`, Aina has added an array of options. You can wr
 	),
 ```
 
-## Why?
-I know for some it may sound grossy to create a Ruby Gem that generates WordPress code. In my day to day I work a lot with WordPress (85% of my professional time), so having tools that allow me to work faster was a real need. Also, I love Ruby and since I don't get to work on many Ruby projects professionally, I decided to write this tool in Ruby. I know some people will consider it crazyness, but after all it's your choice to use it or not. 
+Of course, if you feel like adding more custom fields to the Project post type, you can do it again, and they will be *preppended* to the existing ones.
+
+## Why Aina, and why a Ruby gem?
+I know for some it may sound grossy to create a Ruby gem that generates WordPress code. In my day to day I work a lot with WordPress (85% of my professional time), so having tools that allow me to work faster was a real need. Also, I love Ruby and since I don't get to work on many Ruby projects professionally, I decided to write this tool in Ruby. I know some people will consider it crazyness, but after all it's your choice to use it or not. 
