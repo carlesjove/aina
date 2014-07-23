@@ -1,3 +1,3 @@
 module Aina
-  VERSION = '0.2.1.beta'
+  VERSION = '0.2.2'
 end
