@@ -24,7 +24,7 @@ class Addable
 			a += "'#{f[:key]}' => array(\n"
 			a += "  'label'     => '#{f[:key].capitalize}',\n"
 			a += "  'type'      => '#{f[:type]}',\n"
-			a += "  'options' 	=> array('option_1', 'option_2', 'etc'),\n" if %w(radio checkbox select).include?(f[:type])
+			a += "  'options' 	=> array( 'option_1' => __('Option One'), 'option_2' => __('Option One') ),\n" if %w(radio checkbox select).include?(f[:type])
 			a += "),\n"
 		end
 		a
