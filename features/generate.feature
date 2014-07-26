@@ -10,3 +10,11 @@ Feature: Aina can generate a bunch of WordPress code.
 		Given the file "post-types/hello.php" exists
 		When I succesfully run "aina generate post_type hello"
 		Then the output should contain "already exists"
+
+	Scenario: When generating a post_type, meta fields will also be added, if passed
+		Given the file "post-types/hello.php" doesn't exist
+		When I succesfully run "aina generate post_type hello name:text email:email"
+		Then a file named "post-types/hello.php" should exist
+		And the file "post-types/hello.php" should contain "function hello_custom_fields"
+		And the file "post-types/hello.php" should contain "'name' => array("
+		And the file "post-types/hello.php" should contain "'email' => array("

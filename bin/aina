@@ -50,6 +50,10 @@ command [:generate, :g] do |c|
       element = Object.const_get(Generable.class_name_for @type).new(@name, options)
       unless File.exists?(element.file)
         element.generate
+        unless args.empty?
+          add = Addable.new(@name, args)
+          add.add_custom_fields
+        end
       else
         raise Exception, "A #{@type} named #{element.name} already exists. Action aborted."
       end
