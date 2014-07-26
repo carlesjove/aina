@@ -14,7 +14,11 @@ class Addable
 		fields.each do |f|
 			a = f.split(':')
 			# TODO: Validate type against a whitelist
-			@fields << {key: a[0], type: a[1]}
+			unless a[1].nil?
+				@fields << {key: a[0], type: a[1]}
+			else
+				raise Exception, "Type was missing for #{a[0]}"
+			end
 		end
 	end
 

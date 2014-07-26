@@ -18,3 +18,10 @@ Feature: Aina can generate a bunch of WordPress code.
 		And the file "post-types/hello.php" should contain "function hello_custom_fields"
 		And the file "post-types/hello.php" should contain "'name' => array("
 		And the file "post-types/hello.php" should contain "'email' => array("
+
+	Scenario: When generating a post_type, meta fields won't be added if passed incorrectly
+		Given the file "post-types/hello.php" doesn't exist
+		When I succesfully run "aina generate post_type hello name email"
+		Then a file named "post-types/hello.php" should exist
+		And the file "post-types/hello.php" should not contain "function hello_custom_fields"
+		And the output should contain "Type was missing"
