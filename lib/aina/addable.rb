@@ -1,6 +1,8 @@
 class Addable
 	attr_accessor :name, :aina_version, :fields
 
+	VALID_TYPES = %w(text url email textarea datetime datetime-local radio checkbox select)
+
 	def initialize(name, fields = nil)
 		@type = 'post_type'
 		@name = validate_name(name)
@@ -13,11 +15,11 @@ class Addable
 		@fields = Array.new
 		fields.each do |f|
 			a = f.split(':')
-			# TODO: Validate type against a whitelist
-			unless a[1].nil?
+			if ! a[1].nil? and VALID_TYPES.include? a[1]
 				@fields << {key: a[0], type: a[1]}
 			else
-				raise Exception, "Type was missing for #{a[0]}"
+				raise Exception, "Type was missing for #{a[0]}" if a[1].nil?
+				raise Exception, "#{a[1]} is not a valid type. Valid types are #{VALID_TYPES.join(', ')}"
 			end
 		end
 	end

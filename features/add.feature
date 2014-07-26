@@ -16,3 +16,11 @@ Feature: Aina can add extra code to existing models (post-types) previously gene
 			Then a file named "post-types/test.php" should exist
 			And the file "post-types/test.php" should not contain "function test_custom_fields"
 			And the output should contain "Type was missing"
+
+	Scenario: Meta fields without type won't be added
+		Given the file "post-types/test.php" doesn't exist
+		When I succesfully run "aina generate post_type test"
+		And I succesfully run "aina add test name:hello email:shit"
+		Then a file named "post-types/test.php" should exist
+		And the file "post-types/test.php" should not contain "function test_custom_fields"
+		And the output should contain "not a valid type"

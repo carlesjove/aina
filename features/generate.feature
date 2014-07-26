@@ -25,3 +25,10 @@ Feature: Aina can generate a bunch of WordPress code.
 		Then a file named "post-types/hello.php" should exist
 		And the file "post-types/hello.php" should not contain "function hello_custom_fields"
 		And the output should contain "Type was missing"
+
+	Scenario: When generating a post_type, meta fields won't be added if invalid
+		Given the file "post-types/hello.php" doesn't exist
+		When I succesfully run "aina generate post_type hello name:fuck email:damm"
+		Then a file named "post-types/hello.php" should exist
+		And the file "post-types/hello.php" should not contain "function hello_custom_fields"
+		And the output should contain "not a valid type"
