@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aina (0.2.2)
+    aina (0.3.0)
       gli (= 2.8.1)
 
 GEM
