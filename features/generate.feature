@@ -6,6 +6,18 @@ Feature: Aina can generate a bunch of WordPress code.
     When I succesfully run "aina generate post_type hello"
     Then a file named "post-types/hello.php" should exist
 
+  Scenario: Post types with multiple words can be generated
+    Given the file "post-types/my_post_type.php" doesn't exist
+    When I succesfully run "aina g post_type my_post_type"
+    Then a file named "post-types/my_post_type.php" should exist
+    And the file "post-types/my_post_type.php" should contain "Add New My Post Type Item"
+
+  Scenario: Post types can be generated using a string
+    Given the file "post-types/my_post_type.php" doesn't exist
+    When I succesfully run "aina g post_type 'my post type'"
+    Then a file named "post-types/my_post_type.php" should exist
+    And the file "post-types/my_post_type.php" should contain "Add New My Post Type Item"
+
   Scenario: Generating a post-type won't overwrite it if already exists
     Given the file "post-types/hello.php" exists
     When I succesfully run "aina generate post_type hello"

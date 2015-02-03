@@ -4,7 +4,7 @@ class Generable::Base
   attr_reader :name, :template, :file, :aina_version, :supports
 
   def initialize(name, options=nil)
-    @name = name
+    @name = format_name(name)
     @options = options
     @aina_version = Aina::VERSION
     @template = self.template
@@ -12,6 +12,17 @@ class Generable::Base
     @file = generate_file_name
 
     set_custom_vars
+  end
+
+  def display_name
+    name
+      .split('_')
+      .each {|w| w.capitalize! }
+      .join(' ')
+  end
+
+  def name
+    @name.split(' ').join('_').downcase
   end
 
   def set_custom_vars
@@ -59,14 +70,19 @@ class Generable::Base
   end
 
   private
-    def generate_file_name
-      unless @dir.nil?
-        unless Dir.exists?(Dir.pwd + '/' + @dir)
-          Dir.mkdir(Dir.pwd + '/' + @dir)
-        end
-        Dir.pwd + "/#{@dir}/#{@name}.php"
-      else
-        Dir.pwd + "/#{@name}.php"
+
+  def format_name(string)
+    string.split(' ').join('_').downcase
+  end
+
+  def generate_file_name
+    unless @dir.nil?
+      unless Dir.exists?(Dir.pwd + '/' + @dir)
+        Dir.mkdir(Dir.pwd + '/' + @dir)
       end
+      Dir.pwd + "/#{@dir}/#{@name}.php"
+    else
+      Dir.pwd + "/#{@name}.php"
     end
+  end
 end
