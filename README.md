@@ -96,4 +96,9 @@ Of course, if you feel like adding more custom fields to the Project post type, 
 `$ aina generate post_type project name:text website:url`
 
 ## Why Aina, and why a Ruby gem?
-I know for some it may sound grossy to create a Ruby gem that generates WordPress code. In my day to day I work a lot with WordPress (85% of my professional time), so having tools that allow me to work faster was a real need. Also, I love Ruby and since I don't get to work on many Ruby projects professionally, I decided to write this tool in Ruby. I know some people will consider it crazyness, but after all it's your choice to use it or not. 
+
+I was a WP developer. I wanted to learn Ruby. I started by writing a tool that
+generated WP code.
+
+PS: Aina is my first daughter's name :heart:
+
