@@ -21,16 +21,26 @@ Aina runs within themes, so the first step is moving to your theme directory. *A
 This is the list of Aina's current commands.
 
 ### Generate
-The `generate` command (or `g` in its abbreviated form) lets you generate WordPress elements. It also includes them in your `functions.php` so you don't need to do it manually.
+The `generate` command (or `g` in its abbreviated form) lets you generate
+WordPress elements. It also includes them in your `functions.php` so you don't
+need to do it manually. You can create Post Types and page templates.
 
 `$ aina generate <element_type> <element_name>`
 
-Since right now the only available option is `post_type`, this is how you would create a new custom post type named Project:
+This is how you would create a new custom post type named Project:
 
 ```
 $ aina generate post_type project
 
 # This will create a post type named Project in /post-types/project.php
+```
+
+This is how you would create a Page Template named Hello World:
+
+```bash
+$ aina g template hello_world
+
+# Will generate a page template at /template-hello_world.php
 ```
 
 ### Add
