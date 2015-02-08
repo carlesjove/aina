@@ -4,7 +4,7 @@ class Generable::Base
   attr_reader :name, :template, :file, :aina_version, :supports
 
   def initialize(name, options=nil)
-    @name = format_name(name)
+    @original_name = format_name(name)
     @options = options
     @aina_version = Aina::VERSION
     @template = self.template
@@ -22,7 +22,7 @@ class Generable::Base
   end
 
   def name
-    @name.split(' ').join('_').downcase
+    @original_name
   end
 
   def set_custom_vars
@@ -46,9 +46,9 @@ class Generable::Base
     text = File.read(@template)
     replacements.each do |replace|
       attribute = replace.gsub(/[{}]/, '')
-      @output = text.gsub!(/#{replace}/, self.send(attribute))
+      text.gsub!(/#{replace}/, self.send(attribute))
     end
-    File.open(@file, "w") {|file| file.puts @output}
+    File.open(@file, "w") {|file| file.puts text}
 
     after_generate
   end
@@ -80,9 +80,9 @@ class Generable::Base
       unless Dir.exists?(Dir.pwd + '/' + @dir)
         Dir.mkdir(Dir.pwd + '/' + @dir)
       end
-      Dir.pwd + "/#{@dir}/#{@name}.php"
+      Dir.pwd + "/#{@dir}/#{name}.php"
     else
-      Dir.pwd + "/#{@name}.php"
+      Dir.pwd + "/#{name}.php"
     end
   end
 end
