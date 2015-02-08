@@ -49,7 +49,7 @@ module Generable
   end
 
   def get_replacements
-    @replacements
+    @replacements || []
   end
 
   def after_generate(*callbacks)
