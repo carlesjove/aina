@@ -5,6 +5,7 @@ Feature: Aina can generate a bunch of WordPress code.
     Given the file "post-types/hello.php" doesn't exist
     When I succesfully run "aina generate post_type hello"
     Then a file named "post-types/hello.php" should exist
+    And the file named "post-types/hello.php" should contain "Custom Post Type: Hello"
 
   Scenario: Post types with multiple words can be generated
     Given the file "post-types/my_post_type.php" doesn't exist
@@ -44,3 +45,10 @@ Feature: Aina can generate a bunch of WordPress code.
     Then a file named "post-types/hello.php" should exist
     And the file "post-types/hello.php" should not contain "function hello_custom_fields"
     And the output should contain "not a valid type"
+
+  Scenario: Page templates can be generated
+    Given the file "template-hello_world.php" doesn't exist
+    When I succesfully run "aina generate template hello_world"
+    Then a file named "template-hello_world.php" should exist
+    And the file "template-hello_world.php" should contain "Template Name: Hello World"
+

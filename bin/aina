@@ -39,7 +39,7 @@ command [:generate, :g] do |c|
   c.action do |global_options,options,args|
     @type = args.shift
     @name = args.shift
-    
+
     if @type.nil?
       raise NoMethodError, 'You need to generate something'
     elsif @name.nil?
@@ -57,7 +57,7 @@ command [:generate, :g] do |c|
       else
         raise Exception, "A #{@type} named #{element.name} already exists. Action aborted."
       end
-      
+
       output = "A #{@type} with name #{element.name} has been succesfully generated"
       if options[:i]
         output += ". Also, Aina's framework has been added.\n"
@@ -65,7 +65,8 @@ command [:generate, :g] do |c|
 
       puts output
     else
-      raise Exception, "#{@type} is not a generable piece of code. Options are: #{Generable.generable_types.join(', ')}"
+      raise Exception, "#{@type} is not a generable piece of code. " <<
+                       "Options are: #{Generable.generable_types.join(', ')}"
     end
   end
 end
