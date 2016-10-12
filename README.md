@@ -1,6 +1,10 @@
 Aina
 =====
 
+**THIS PROJECT IS NO LONGER MANTAINED.**
+**Feel free to continue it yourself if you wish. I'm open to provide access to
+Rubygems for new releases.**
+
 Code generation for WordPress *themes*, from the Command Line.
 
 **Please, notice that the current version of Aina is 0.x, which means that it's in an early stage of development. Use it at your own risk. No backward compatibility issues will be considered until version 1.x**.
